@@ -5,7 +5,7 @@ export const colors = {
   surface: '#1b2128',
   text: '#f2f4f7',
   textMuted: '#9aa4b2',
-  accent: '#ffcc00', // Pokémon yellow
+  accent: '#ffcc00', // bright yellow, easy to spot over any camera image
   danger: '#ff5a5f',
   guide: 'rgba(255, 255, 255, 0.85)',
   scrim: 'rgba(0, 0, 0, 0.55)',
