@@ -1,20 +1,34 @@
+import { useState } from 'react';
+import { Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { CameraScreen, type CapturedPhoto } from './src/screens/CameraScreen';
+import { PreviewScreen } from './src/screens/PreviewScreen';
 
+/**
+ * The root of the app.
+ *
+ * For Phase 1 there are only two screens, so we switch between them with a
+ * single piece of state instead of a navigation library. When the app grows
+ * (collection tab, settings, card detail) we'll add Expo Router.
+ */
 export default function App() {
+  const [photo, setPhoto] = useState<CapturedPhoto | null>(null);
+
+  function handleAccept() {
+    // Phase 2 will send the photo off to be identified. For now, just confirm.
+    Alert.alert('Photo saved', 'In Phase 2 this is where we identify the card.', [
+      { text: 'OK', onPress: () => setPhoto(null) },
+    ]);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style="light" />
+      {photo ? (
+        <PreviewScreen photo={photo} onRetake={() => setPhoto(null)} onAccept={handleAccept} />
+      ) : (
+        <CameraScreen onPhotoTaken={setPhoto} />
+      )}
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
