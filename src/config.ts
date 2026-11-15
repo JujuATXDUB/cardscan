@@ -7,8 +7,8 @@
  *
  * Fill these in from Supabase: Project Settings -> API.
  */
-export const SUPABASE_URL = 'https://YOUR-PROJECT-REF.supabase.co';
-export const SUPABASE_ANON_KEY = 'YOUR-ANON-KEY';
+export const SUPABASE_URL = 'https://ngoyvuffbdndbymcoesz.supabase.co';
+export const SUPABASE_ANON_KEY = 'sb_publishable_qRbkOOrnrIKtKZwx9QAaIw_QDhOkUzd';
 
 export function isBackendConfigured(): boolean {
   return !SUPABASE_URL.includes('YOUR-PROJECT-REF') && !SUPABASE_ANON_KEY.startsWith('YOUR-');
