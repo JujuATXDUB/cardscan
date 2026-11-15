@@ -8,8 +8,8 @@ _Updated 14 Nov 2026 after switching from Pokémon to sports cards. Anything mar
 |---|---|
 | Card type | **Sports cards first** (baseball, basketball, football, soccer, hockey). The app is built so any card type can be added later: a card is just "category + details + price", and the identification and price code are swappable modules. Pokémon and other games come after sports works. |
 | Your one difference | Still open. Suggested: honest **eBay-sold-based prices with the actual recent sales shown**, not a mystery "estimated value". Decide before Phase 3. |
-| Identification (Phase 2) | AI vision model (Claude) reads the card and returns structured details: sport, player, year, brand, set, card number, parallel/variant, graded or raw. The user confirms with one tap. CardSight AI (a sports-card specialist service) is tried alongside it; whichever is more accurate on your real cards wins. |
-| Price source (Phase 3) | Start with **The Card API** (eBay sales data, free tier for development, covers sports and Pokémon). Written commercial permission must be confirmed with them before launch. CardSight's built-in prices are the backup for sports; PriceCharting (paid, commercial licence by contact) is the backup for everything else. |
+| Identification (Phase 2) | **CardSight AI** only. It identifies sports cards and Pokémon, Magic, One Piece, Marvel and Disney from a photo, returns year, brand, set, number, parallel hints and confidence, and has a free tier (750 scans/month, no card). The Claude-vision option was dropped because it needs a paid account; it can come back later if CardSight misses too often. |
+| Price source (Phase 3) | **CardSight's own pricing endpoint** first (completed sales for the identified card, same free tier, same key). The Card API and PriceCharting stay as backups if CardSight's sales data is thin for a category. |
 | Phone | iPhone, tested through Expo Go. |
 | Extra Pro feature | Cloud backup and sync of the collection, plus price-drop alerts. |
 
@@ -87,16 +87,17 @@ The sports-card market is priced off **eBay sold listings**. There is no equival
 | Phase | Goal | Testable on phone? |
 |---|---|---|
 | 1 ✅ | Camera screen, card guide frame, take and review a photo | Yes, Expo Go |
-| 2 | Identify the card (front + optional back), show details, user confirms | Yes, Expo Go |
+| 2 ✅ code / ⏳ setup | Category picker, identify via CardSight through a Supabase function, result screen with alternatives | Yes, Expo Go, after docs/PHASE2-SETUP.md |
 | 3 | Show recent sales and a price, with the source and date | Yes |
 | 4 | Save to collection, list it, show total value | Yes |
 | 5 | Ads for free users, Pro subscription removes ads + adds the Pro feature | Needs a development build |
 | 6 | Store listing, privacy policy, closed test, launch | |
 
-## What you need to sign up for before Phase 2 (all free)
+## Accounts (all free, all created)
 
-1. An Anthropic API account at https://platform.claude.com (for Claude identification). Add a small amount of credit, US$5 is plenty for testing.
-2. A CardSight AI account at https://cardsight.ai (free tier).
-3. A Supabase account at https://supabase.com (free tier), for the backend function that keeps those keys off the phone.
+- CardSight AI (identification + prices)
+- Supabase (backend function that keeps the CardSight key off the phone)
+- GitHub (code lives at JujuATXDUB/cardscan)
+- Expo (Expo Go sign-in)
 
-Never paste any API key into chat. Each one goes into Supabase's secrets settings.
+Never paste any API key into chat. Keys go into Supabase's secrets settings. See docs/PHASE2-SETUP.md.

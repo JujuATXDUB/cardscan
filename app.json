@@ -35,7 +35,12 @@
           "cameraPermission": "CardScan uses the camera to photograph your trading cards so it can identify them.",
           "recordAudioAndroid": false
         }
-      ]
-    ]
+      ],
+      "expo-router"
+    ],
+    "scheme": "cardscan",
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

@@ -1,7 +1,7 @@
 # CardScan
 
 Scan a trading card with your phone camera, see what it is and what it's worth.
-Built with Expo (React Native) + TypeScript.
+Built with Expo (React Native) + TypeScript. Sports cards first; Pokémon, Magic, One Piece, Marvel and Disney also supported by the identifier.
 
 See `docs/PLAN.md` for the full plan, costs and risks.
 
@@ -25,11 +25,15 @@ See `docs/PLAN.md` for the full plan, costs and risks.
 ## Project layout
 
 ```
-App.tsx                 root: switches between camera and preview
-src/theme.ts            colours, spacing, card aspect ratio
-src/screens/            CameraScreen, PreviewScreen
-src/components/         CardGuide (overlay), PrimaryButton
+src/app/                screens as routes (Expo Router): index = camera, preview, result
+src/screens/            the screen components themselves
+src/components/         CardGuide, CategoryPicker, PrimaryButton
+src/services/identify.ts  shrinks the photo and calls the backend
+src/categories.ts       the card categories (sports + TCGs)
+src/config.ts           backend URL + public key
+supabase/functions/identify-card/   the server function that calls CardSight AI
 docs/PLAN.md            plan, costs, risks
+docs/PHASE2-SETUP.md    one-time setup for identification
 ```
 
 ## Checks before committing

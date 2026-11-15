@@ -3,7 +3,9 @@ import { ActivityIndicator, Linking, Pressable, StyleSheet, Text, View } from 'r
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as Haptics from 'expo-haptics';
 import { CardGuide } from '../components/CardGuide';
+import { CategoryPicker } from '../components/CategoryPicker';
 import { PrimaryButton } from '../components/PrimaryButton';
+import { Category } from '../categories';
 import { colors, spacing } from '../theme';
 
 /** What the camera screen hands back when the user confirms a photo. */
@@ -14,6 +16,8 @@ export type CapturedPhoto = {
 };
 
 type Props = {
+  category: Category;
+  onCategoryChange: (c: Category) => void;
   onPhotoTaken: (photo: CapturedPhoto) => void;
 };
 
@@ -25,7 +29,7 @@ type Props = {
  *   2. Show the live preview with a card-shaped guide.
  *   3. Tap the shutter -> take the picture -> hand it to the parent.
  */
-export function CameraScreen({ onPhotoTaken }: Props) {
+export function CameraScreen({ category, onCategoryChange, onPhotoTaken }: Props) {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
   const [isReady, setIsReady] = useState(false);
@@ -104,8 +108,9 @@ export function CameraScreen({ onPhotoTaken }: Props) {
         </Pressable>
       </View>
 
-      {/* Bottom bar with the shutter button */}
+      {/* Bottom bar: category chips above the shutter button */}
       <View style={styles.bottomBar}>
+        <CategoryPicker value={category} onChange={onCategoryChange} />
         <Pressable
           onPress={takePicture}
           disabled={!isReady || isCapturing}
@@ -146,11 +151,11 @@ const styles = StyleSheet.create({
   flashText: { color: colors.text, fontWeight: '600' },
   bottomBar: {
     position: 'absolute',
-    bottom: 48,
+    bottom: 40,
     left: 0,
     right: 0,
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: spacing.md,
   },
   shutterOuter: {
     width: 84,
